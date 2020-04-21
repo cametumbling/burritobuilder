@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import Layout from './components/Layout/Layout';
+import Layout from './hoc/Layout/Layout';
 import BurritoBuilder from './containers/BurritoBuilder/BurritoBuilder';
 
 function App() {

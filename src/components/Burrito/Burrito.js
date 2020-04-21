@@ -2,7 +2,6 @@ import React from 'react';
 
 import classes from './Burrito.module.css';
 import BurritoIngredient from './BurritoIngredient/BurritoIngredient';
-import BuildControls from './BuildControls/BuildControls';
 
 const burrito = (props) => {
   let transformedIngredients = Object.keys(props.ingredients).map(igKey => {
