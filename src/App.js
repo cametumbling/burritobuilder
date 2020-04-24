@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import Layout from './hoc/Layout/Layout';
 import BurritoBuilder from './containers/BurritoBuilder/BurritoBuilder';
@@ -8,8 +9,10 @@ function App() {
   return (
     <div>
       <Layout>
-        <BurritoBuilder />
-        <Checkout />
+        <Switch>
+          <Route path='/checkout' component={ Checkout } />
+          <Route path='/' exact component={ BurritoBuilder } />
+        </Switch>
       </Layout>
     </div>
   );
