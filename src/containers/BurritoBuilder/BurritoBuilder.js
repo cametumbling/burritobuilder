@@ -85,37 +85,12 @@ purchaseCancelHandler = () => {
 }
 
 purchaseContinueHandler = () => {
-  // this.setState({loading: true});
-
-  // const order = {
-  //   ingredients: this.state.ingredients,
-  //   price: this.state.totalPrice,
-  //   customer: {
-  //     name: 'Jill Marcum',
-  //     address: {
-  //       street: '233 Grandview Dr',
-  //       city: 'Redlands',
-  //       state: 'CA',
-  //       zip: '92373',
-  //     },
-  //     email: 'test@test.com',
-  //   },
-  //   deliveryMethod: 'fastest',
-  // }
-
-  // axios.post('/orders.json', order)
-  //   .then(response => {
-  //     this.setState({ loading: false, purchasing: false })
-  //   })
-  //   .catch(error => {
-  //     this.setState({ loading: false, purchasing: false })
-  //   });
 
   const queryParams = [];
   for (let i in this.state.ingredients) {
     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
   };
-
+  queryParams.push('price=' + this.state.totalPrice);
   const queryString = queryParams.join('&');
 
   this.props.history.push({
