@@ -31,6 +31,8 @@ class BurritoIngredient extends Component {
      case ('bacon'):
        ingredient = <div className={classes.Bacon}></div>;
        break;
+     default:
+       ingredient = <div className={classes.BreadBottom}></div>;
    }
      return ingredient;
   }
