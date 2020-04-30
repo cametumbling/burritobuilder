@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burrito/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import * as burritoBuilderActions from '../../store/actions/index';
 
 class BurritoBuilder extends Component {
   state = {
@@ -22,13 +22,13 @@ class BurritoBuilder extends Component {
   }
 
 componentDidMount () {
-  // axios.get('https://burritobuilder-15294.firebaseio.com/ingredients.json')
-  //   .then(response => {
-  //     this.setState({ ingredients: response.data})
-  //   })
-  //   .catch(error => {
-  //     this.setState({ error: true })
-  //   });
+  axios.get('https://burritobuilder-15294.firebaseio.com/ingredients.json')
+    .then(response => {
+      this.setState({ ingredients: response.data})
+    })
+    .catch(error => {
+      this.setState({ error: true })
+    });
 }
 
 updatePurchaseState(ingredients) {
@@ -122,8 +122,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingName }),
-    onIngredientRemoved: (ingName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName })
+    onIngredientAdded: (ingName) => dispatch(burritoBuilderActions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) => dispatch(burritoBuilderActions.removeIngredient(ingName))
   };
 }
 
