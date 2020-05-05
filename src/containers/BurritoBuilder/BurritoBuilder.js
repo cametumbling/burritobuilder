@@ -8,8 +8,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burrito/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-orders';
 import * as burritoBuilderActions from '../../store/actions/index';
+import axios from '../../axios-orders';
 
 class BurritoBuilder extends Component {
   state = {
@@ -17,18 +17,12 @@ class BurritoBuilder extends Component {
     //totalPrice: 4,
     //purchasable: false,
     purchasing: false,
-    loading: false,
-    error: false,
+    //loading: false,
+    //error: false,
   }
 
 componentDidMount () {
-  axios.get('https://burritobuilder-15294.firebaseio.com/ingredients.json')
-    .then(response => {
-      this.setState({ ingredients: response.data})
-    })
-    .catch(error => {
-      this.setState({ error: true })
-    });
+   this.props.onInitIngredients();
 }
 
 updatePurchaseState(ingredients) {
@@ -73,7 +67,7 @@ purchaseContinueHandler = () => {
     }
 
     let orderSummary = null;
-    let burrito = this.state.error ? <p>Ingredients can't be loaded.</p> : <Spinner />;
+    let burrito = this.props.error ? <p>Ingredients can't be loaded.</p> : <Spinner />;
 
     if (this.props.ings) {
       burrito = (
@@ -98,9 +92,9 @@ purchaseContinueHandler = () => {
       );
     }
 
-    if (this.state.loading) {
-       orderSummary = <Spinner />;
-    }
+    //if (this.state.loading) {
+    //   orderSummary = <Spinner />;
+    //}
 
     return (
       <Aux>
@@ -115,15 +109,17 @@ purchaseContinueHandler = () => {
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice
+    ings: state.burritoBuilder.ingredients,
+    price: state.burritoBuilder.totalPrice,
+    error: state.burritoBuilder.error,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingName) => dispatch(burritoBuilderActions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(burritoBuilderActions.removeIngredient(ingName))
+    onIngredientRemoved: (ingName) => dispatch(burritoBuilderActions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(burritoBuilderActions.initIngredients()),
   };
 }
 

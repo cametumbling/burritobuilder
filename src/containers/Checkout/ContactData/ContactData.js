@@ -6,6 +6,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
   state = {
@@ -91,12 +93,12 @@ class ContactData extends Component {
       }
     },
    formIsValid: false,
-   loading: false
+   //loading: false
   }
 
   orderHandler = ( event ) => {
     event.preventDefault();
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
@@ -106,14 +108,7 @@ class ContactData extends Component {
      price: this.props.price,
      orderData: formData,
     }
-
-   axios.post('/orders.json', order)
-     .then(response => {
-       this.setState({ loading: false })
-     })
-     .catch(error => {
-       this.setState({ loading: false })
-     });
+    this.props.onOrderBurrito(order);
   }
 
   checkValidity(value, rules) {
@@ -174,7 +169,7 @@ class ContactData extends Component {
         <Button btnType='Success' disabled={!this.state.formIsValid}>ORDER</Button>
       </form>
     );
-    if (this.state.loading === true) {
+    if (this.props.loading === true) {
       form = <Spinner />;
     }
     return (
@@ -189,11 +184,18 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice
+    ings: state.burritoBuilder.ingredients,
+    price: state.burritoBuilder.totalPrice,
+    loading: state.order.loading,
   };
-}
+};
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurrito: (orderData) => dispatch(actions.purchaseBurrito(orderData))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
 
 

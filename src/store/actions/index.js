@@ -1,6 +1,9 @@
 export {
   addIngredient,
-  removeIngredient
+  removeIngredient,
+  initIngredients
 } from './burritoBuilder';
 
-export {} from './order';
+export {
+  purchaseBurrito
+} from './order';
