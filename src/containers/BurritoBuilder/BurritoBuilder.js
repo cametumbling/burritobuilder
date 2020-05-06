@@ -8,17 +8,12 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burrito/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as burritoBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
 class BurritoBuilder extends Component {
   state = {
-    //ingredients: null,
-    //totalPrice: 4,
-    //purchasable: false,
     purchasing: false,
-    //loading: false,
-    //error: false,
   }
 
 componentDidMount () {
@@ -43,18 +38,7 @@ purchaseCancelHandler = () => {
 }
 
 purchaseContinueHandler = () => {
-
-  // const queryParams = [];
-  // for (let i in this.state.ingredients) {
-  //   queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
-  // };
-  // queryParams.push('price=' + this.state.totalPrice);
-  // const queryString = queryParams.join('&');
-
-  // this.props.history.push({
-  //   pathname: '/checkout',
-  //   search: '?' + queryString,
-  // });
+  this.props.onInitPurchase();
   this.props.history.push('/checkout');
 }
 
@@ -92,10 +76,6 @@ purchaseContinueHandler = () => {
       );
     }
 
-    //if (this.state.loading) {
-    //   orderSummary = <Spinner />;
-    //}
-
     return (
       <Aux>
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -117,9 +97,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingName) => dispatch(burritoBuilderActions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(burritoBuilderActions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(burritoBuilderActions.initIngredients()),
+    onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
   };
 }
 

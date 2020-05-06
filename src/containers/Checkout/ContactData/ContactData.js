@@ -93,12 +93,10 @@ class ContactData extends Component {
       }
     },
    formIsValid: false,
-   //loading: false
   }
 
   orderHandler = ( event ) => {
     event.preventDefault();
-    // this.setState({ loading: true });
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;

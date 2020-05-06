@@ -5,5 +5,7 @@ export {
 } from './burritoBuilder';
 
 export {
-  purchaseBurrito
+  purchaseBurrito,
+  purchaseInit,
+  fetchOrders,
 } from './order';
