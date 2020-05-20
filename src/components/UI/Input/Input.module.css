@@ -27,11 +27,12 @@
 }
 
 .Invalid {
-  border: 1px solid #FF0000o;
+  border: 1px solid #FF0000;
   background-color: #FDA49A;
 }
 
 .ValidationError {
-    color: red;
-    margin: 5px 0;
+  color: #FF0000;
+  margin: 0;
+  padding: 0;
 }
