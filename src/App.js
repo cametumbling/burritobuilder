@@ -49,7 +49,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null;
+    isAuthenticated: state.auth.token !== null,
   }
 }
 
@@ -59,4 +59,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App)),
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
