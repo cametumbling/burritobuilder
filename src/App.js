@@ -14,7 +14,7 @@ class App extends Component {
 
   componentDidMount () {
     this.props.onTryAutoSignup();
-  };
+  }
 
   render() {
     let routes = (
@@ -50,12 +50,12 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState),
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
   };
 };
 
