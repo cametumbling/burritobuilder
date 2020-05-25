@@ -11,7 +11,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
-class BurritoBuilder extends Component {
+export class BurritoBuilder extends Component {
   state = {
     purchasing: false,
   }
