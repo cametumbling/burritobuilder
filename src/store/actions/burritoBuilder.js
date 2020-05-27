@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
 
 export const addIngredient = (name) => {
   return {
@@ -29,13 +28,16 @@ export const fetchIngredientsFailed = () => {
 };
 
 export const initIngredients = () => {
-  return dispatch => {
-    axios.get('https://burritobuilder-15294.firebaseio.com/ingredients.json')
-      .then(response => {
-        dispatch(setIngredients(response.data));
-      })
-      .catch(error => {
-        dispatch(fetchIngredientsFailed());
-      });
+  return {
+    types: actionTypes.INIT_INGREDIENTS,
   };
+  // return dispatch => {
+  //   axios.get('https://burritobuilder-15294.firebaseio.com/ingredients.json')
+  //     .then(response => {
+  //       dispatch(setIngredients(response.data));
+  //     })
+  //     .catch(error => {
+  //       dispatch(fetchIngredientsFailed());
+  //     });
+  // };
 };
